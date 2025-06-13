@@ -89,42 +89,62 @@ const todoInput = document.querySelector(".todo__input");
 const todoCreateButton = document.querySelector(".todo__create__button");
 const todoContainer = document.querySelector(".todo__container");
 
-const allTodoItemText = [];
-
 todoCreateButton.addEventListener("click", () => {
-  const todoItemText = todoInput.value;
+  const todoItemText = todoInput.value.trim();
   todoInput.value = "";
-  if (!todoItemText) {
-    return;
-  }
-  allTodoItemText.push(todoItemText);
-  const allTodoItemHtmls = allTodoItemText.map((text) => {
-    return `<div class="todo__item">
-          <div class="todo__item__left">
-            <input type="checkbox" id="completed" name="completed" />
-            <span>${text}</span>
-          </div>
-          <div class="todo__item__right">
-            <svg
-              class="todo__delete__button"
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="red"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="lucide lucide-trash"
-            >
-              <path d="M3 6h18" />
-              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-            </svg>
-          </div>
-        </div>`;
+  if (!todoItemText) return;
+
+  const todoItem = document.createElement("div");
+  todoItem.classList.add("todo__item");
+
+  const leftDiv = document.createElement("div");
+  leftDiv.classList.add("todo__item__left");
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+
+  const textSpan = document.createElement("span");
+  textSpan.textContent = todoItemText;
+
+  checkbox.addEventListener("change", () => {
+    todoItem.classList.toggle("todo__item--completed", checkbox.checked);
   });
 
-  todoContainer.innerHTML = allTodoItemHtmls.join(" ");
+  leftDiv.appendChild(checkbox);
+  leftDiv.appendChild(textSpan);
+
+  const rightDiv = document.createElement("div");
+  rightDiv.classList.add("todo__item__right");
+
+  const deleteBtn = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  deleteBtn.setAttribute("class", "todo__delete__button");
+  deleteBtn.setAttribute("width", "20");
+  deleteBtn.setAttribute("height", "20");
+  deleteBtn.setAttribute("viewBox", "0 0 24 24");
+  deleteBtn.setAttribute("fill", "none");
+  deleteBtn.setAttribute("stroke", "red");
+  deleteBtn.setAttribute("stroke-width", "2");
+  deleteBtn.setAttribute("stroke-linecap", "round");
+  deleteBtn.setAttribute("stroke-linejoin", "round");
+
+  const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path1.setAttribute("d", "M3 6h18");
+  const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path2.setAttribute("d", "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6");
+  const path3 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path3.setAttribute("d", "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2");
+
+  deleteBtn.appendChild(path1);
+  deleteBtn.appendChild(path2);
+  deleteBtn.appendChild(path3);
+
+  deleteBtn.addEventListener("click", () => {
+    todoItem.remove();
+  });
+
+  rightDiv.appendChild(deleteBtn);
+  todoItem.appendChild(leftDiv);
+  todoItem.appendChild(rightDiv);
+  todoContainer.appendChild(todoItem);
 });
+

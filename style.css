@@ -24,9 +24,7 @@ input[type="checkbox"] {
   height: 1.2em;
   border: 1px solid black;
   border-radius: 4px;
-  /* Adjusts the position of the checkboxes on the text baseline */
   vertical-align: -2px;
-  /* Set here so that Windows' High-Contrast Mode can override */
   color: black;
 }
 
@@ -40,7 +38,6 @@ input[type="checkbox"]::before {
 }
 
 input[type="checkbox"]:checked::before {
-  /* Use `visibility` instead of `display` to avoid recalculating layout */
   visibility: visible;
 }
 
@@ -51,31 +48,29 @@ input[type="checkbox"]:disabled {
 }
 
 .container {
-  /* border: 1px solid black; */
   width: 50%;
   height: 100vh;
   padding: 16px;
+}
 
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.container__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    h1 {
-      font-size: 24px;
-      font-weight: 600;
-    }
-    p {
-      margin-top: 8px;
-    }
+.container__header h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
 
-    .container__header__time {
-      h1 {
-        font-size: 36px;
-        font-weight: 600;
-      }
-    }
-  }
+.container__header p {
+  margin-top: 8px;
+}
+
+.container__header__time h1 {
+  font-size: 36px;
+  font-weight: 600;
 }
 
 .todo__create__container {
@@ -83,26 +78,26 @@ input[type="checkbox"]:disabled {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
 
-  input {
-    display: block;
-    width: 80%;
-    font-size: 20px;
-    padding: 8px;
-    outline: none;
-    border-radius: 8px;
-  }
-  button {
-    display: block;
-    width: 15%;
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 8px;
-    background-color: #0ea5e9;
-    color: #fff;
-    outline: none;
-    border: none;
-  }
+.todo__create__container input {
+  width: 80%;
+  font-size: 20px;
+  padding: 8px;
+  outline: none;
+  border-radius: 8px;
+}
+
+.todo__create__container button {
+  width: 15%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 8px;
+  background-color: #0ea5e9;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
 
 .todo__container {
@@ -121,22 +116,23 @@ input[type="checkbox"]:disabled {
   background: #fff;
   align-items: center;
   border: 2px solid #0ea5e9;
-
-  .todo__item__left {
-    display: flex;
-    align-items: center;
-    column-gap: 16px;
-
-    span {
-      font-size: 20px;
-    }
-  }
-
-  .todo__delete__button {
-    cursor: pointer;
-  }
 }
 
-.todo__item--completed {
+.todo__item__left {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.todo__item__left span {
+  font-size: 20px;
+}
+
+.todo__delete__button {
+  cursor: pointer;
+}
+
+.todo__item--completed span {
   text-decoration: line-through;
+  color: gray;
 }
